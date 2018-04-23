@@ -1,0 +1,37 @@
+version: '3'
+
+volumes:
+    db_data:
+
+services:
+
+    mysql:
+     image: mysql:5.5
+     environment:
+        - MYSQL_DATABASE=babylog
+        - MYSQL_PASSWORD=abmk74aa
+        - MYSQL_ROOT_PASSWORD=abmk74aa
+     volumes :
+        - ./docker/sql:/docker-entrypoint-initdb.d
+     networks:
+        - babylog
+
+    phpmyadmin:
+     image: phpmyadmin/phpmyadmin
+     restart: always
+     ports:
+        - 8080:80
+     networks:
+        - babylog
+     depends_on:
+        - mysql
+     environment:
+        - PMA_HOST=mysql
+
+
+networks:
+  babylog:
+    driver: bridge
+
+
+
