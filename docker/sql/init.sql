@@ -42,16 +42,48 @@ CREATE TABLE bl_utilisateur_bebe (
 CREATE TABLE bl_evenement (
 	id_evenement MEDIUMINT UNSIGNED AUTO_INCREMENT NOT NULL,
 	id_bebe MEDIUMINT UNSIGNED NOT NULL,
-	type ENUM('biberon','repas','sommeil','sieste'),
+	type ENUM('biberon','repas','tetee','sommeil','couche'),
 	date_debut DATE NOT NULL,
 	date_fin DATE NOT NULL,
 	heure_debut TIME NOT NULL,
 	heure_fin TIME NOT NULL,
+	commentaires VARCHAR(255) NULL,
 	PRIMARY KEY (id_evenement),
 	FOREIGN KEY (id_bebe) REFERENCES bl_bebe(id_bebe)
 ) ENGINE=InnoDB AUTO_INCREMENT=0000;
 
+CREATE TABLE bl_biberon (
+  id_biberon MEDIUMINT UNSIGNED NOT NULL,
+  quantite_initiale DOUBLE NULL,
+  quantite_bue DOUBLE NULL,
+  cereales TINYINT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id_biberon),
+  FOREIGN KEY (id_biberon) REFERENCES bl_evenement(id_evenement)
+);
 
+CREATE TABLE bl_tetee (
+  id_tetee MEDIUMINT UNSIGNED NOT NULL,
+  duree_sein_droit DOUBLE NULL,
+  duree_sein_gauche DOUBLE NULL,
+  PRIMARY KEY (id_tetee),
+  FOREIGN KEY (id_tetee) REFERENCES bl_evenement(id_evenement)
+);
 
+CREATE TABLE bl_sommeil (
+  id_sommeil MEDIUMINT UNSIGNED NOT NULL,
+  nombre_reveil DOUBLE NULL,
+  PRIMARY KEY (id_sommeil),
+  FOREIGN KEY (id_sommeil) REFERENCES bl_evenement(id_evenement)
+);
 
+CREATE TABLE bl_couche (
+  id_couche MEDIUMINT UNSIGNED NOT NULL,
+  selles TINYINT(1) NOT NULL DEFAULT 0,
+  urine TINYINT(1) NOT NULL DEFAULT 0,
+  vide TINYINT(1) NOT NULL DEFAULT 0,
+  consistance VARCHAR(255) NULL,
+  couleur VARCHAR(255) NULL,
+  PRIMARY KEY (id_couche),
+  FOREIGN KEY (id_couche) REFERENCES bl_evenement(id_evenement)
+);
 
