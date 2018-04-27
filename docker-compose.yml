@@ -1,22 +1,29 @@
 version: '3'
 
 volumes:
-    db_data:
+    data:
 
 services:
 
     mysql:
+     container_name: babylog_mysql
      image: mysql:5.5
+     ports :
+        - 3306:3306
      environment:
         - MYSQL_DATABASE=babylog
         - MYSQL_PASSWORD=abmk74aa
         - MYSQL_ROOT_PASSWORD=abmk74aa
      volumes :
         - ./docker/sql:/docker-entrypoint-initdb.d
+        - data:/var/lib/mysql
      networks:
         - babylog
 
+
+
     phpmyadmin:
+     container_name: babylog_phpmyadmin
      image: phpmyadmin/phpmyadmin
      restart: always
      ports:
@@ -27,6 +34,44 @@ services:
         - mysql
      environment:
         - PMA_HOST=mysql
+
+
+    redis:
+     container_name: babylog_redis
+     image: redis
+     ports:
+        - 6379:6379
+     networks:
+        - babylog
+     networks:
+        - babylog
+
+
+    nginx:
+     container_name: babylog_nginx
+     image: nginx:latest
+     ports:
+        - "5050:80"
+     networks:
+        - babylog
+     volumes:
+        - ./laravel/:/var/www/laravel
+        - ./docker/build/nginx/vhost.conf:/etc/nginx/conf.d/default.conf
+     working_dir:
+        /var/www/laravel
+
+
+    fpm:
+     container_name: babylog_fpm
+     build: ./docker/build/php-fpm
+     ports:
+        - "9000:9000"
+     networks:
+        - babylog
+     volumes:
+        - ./laravel/:/var/www/laravel
+     working_dir:
+        /var/www/laravel
 
 
 networks:
