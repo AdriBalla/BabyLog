@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker-compose up -d
+docker-compose kill && docker-compose rm -f && docker-compose up -d "$@"
 
-docker ps -a
+docker exec -ti babylog_fpm /bin/bash -c "composer install"
