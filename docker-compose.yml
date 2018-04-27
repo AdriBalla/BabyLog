@@ -8,6 +8,8 @@ services:
     mysql:
      container_name: babylog_mysql
      image: mysql:5.5
+     ports :
+        - 3306:3306
      environment:
         - MYSQL_DATABASE=babylog
         - MYSQL_PASSWORD=abmk74aa
@@ -49,12 +51,12 @@ services:
      container_name: babylog_nginx
      image: nginx:latest
      ports:
-        - "80:80"
+        - "5050:80"
      networks:
         - babylog
      volumes:
-        - ./:/var/www/laravel
-        - ./docker/build/nginx/vhost.conf:/etc/nginx/conf.d/laravel.conf
+        - ./laravel/:/var/www/laravel
+        - ./docker/build/nginx/vhost.conf:/etc/nginx/conf.d/default.conf
      working_dir:
         /var/www/laravel
 
@@ -67,7 +69,7 @@ services:
      networks:
         - babylog
      volumes:
-        - ./:/var/www/laravel
+        - ./laravel/:/var/www/laravel
      working_dir:
         /var/www/laravel
 
