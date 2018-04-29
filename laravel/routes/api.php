@@ -19,8 +19,8 @@ $api = app(Router::class);
 
 $api->version('v1', function ($api) {
 
-    $api->get('test', function () {
-        return 'It is ok';
+    $api->get('statut', function () {
+        return 'Statut API Babylog : OK';
     });
 
 });
