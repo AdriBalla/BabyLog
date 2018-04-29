@@ -163,6 +163,11 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+
+        /*
+         * Dingo Api
+         */
         Dingo\Api\Provider\LaravelServiceProvider::class,
 
         /*
