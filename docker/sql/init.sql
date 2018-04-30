@@ -1,15 +1,17 @@
-
 #Création utilisateur babylog
 CREATE USER 'babylog'@'%'
   IDENTIFIED BY 'abmk74aa';
 GRANT USAGE ON *.* TO 'babylog'@'%';
 GRANT ALL PRIVILEGES ON `babylog`.* TO 'babylog'@'%';
 
-#Exemple de données à créer au lancement du docker
+#Création de la table babylog
+DROP DATABASE IF EXISTS babylog;
+CREATE DATABASE babylog;
 
+#Exemple de données à créer au lancement du docker
 USE babylog;
 
-CREATE TABLE bl_bebe (
+CREATE TABLE bebe (
     id_bebe MEDIUMINT UNSIGNED AUTO_INCREMENT NOT NULL,
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
@@ -19,7 +21,7 @@ CREATE TABLE bl_bebe (
     PRIMARY KEY (id_bebe)
 ) ENGINE=InnoDB AUTO_INCREMENT=0000;
 
-CREATE TABLE bl_utilisateur (
+CREATE TABLE utilisateur (
 	id_utilisateur MEDIUMINT UNSIGNED AUTO_INCREMENT NOT NULL,
 	nom VARCHAR(255) NOT NULL,
   prenom VARCHAR(255) NOT NULL,
@@ -31,15 +33,15 @@ CREATE TABLE bl_utilisateur (
 	PRIMARY KEY (id_utilisateur)
 ) ENGINE=InnoDB AUTO_INCREMENT=0000;
 
-CREATE TABLE bl_utilisateur_bebe (
+CREATE TABLE utilisateur_bebe (
 	id_bebe MEDIUMINT UNSIGNED  NOT NULL,
 	id_utilisateur MEDIUMINT UNSIGNED  NOT NULL,
 	PRIMARY KEY (id_bebe,id_utilisateur),
-	FOREIGN KEY (id_bebe) REFERENCES bl_bebe(id_bebe),
-	FOREIGN KEY (id_utilisateur) REFERENCES bl_utilisateur(id_utilisateur)
+	FOREIGN KEY (id_bebe) REFERENCES bebe(id_bebe),
+	FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
-CREATE TABLE bl_evenement (
+CREATE TABLE evenement (
 	id_evenement MEDIUMINT UNSIGNED AUTO_INCREMENT NOT NULL,
 	id_bebe MEDIUMINT UNSIGNED NOT NULL,
 	type ENUM('biberon','repas','tetee','sommeil','couche'),
@@ -49,34 +51,34 @@ CREATE TABLE bl_evenement (
 	heure_fin TIME NOT NULL,
 	commentaires VARCHAR(255) NULL,
 	PRIMARY KEY (id_evenement),
-	FOREIGN KEY (id_bebe) REFERENCES bl_bebe(id_bebe)
+	FOREIGN KEY (id_bebe) REFERENCES bebe(id_bebe)
 ) ENGINE=InnoDB AUTO_INCREMENT=0000;
 
-CREATE TABLE bl_biberon (
+CREATE TABLE biberon (
   id_biberon MEDIUMINT UNSIGNED NOT NULL,
   quantite_initiale DOUBLE NULL,
   quantite_bue DOUBLE NULL,
   cereales TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (id_biberon),
-  FOREIGN KEY (id_biberon) REFERENCES bl_evenement(id_evenement)
+  FOREIGN KEY (id_biberon) REFERENCES evenement(id_evenement)
 );
 
-CREATE TABLE bl_tetee (
+CREATE TABLE tetee (
   id_tetee MEDIUMINT UNSIGNED NOT NULL,
   duree_sein_droit DOUBLE NULL,
   duree_sein_gauche DOUBLE NULL,
   PRIMARY KEY (id_tetee),
-  FOREIGN KEY (id_tetee) REFERENCES bl_evenement(id_evenement)
+  FOREIGN KEY (id_tetee) REFERENCES evenement(id_evenement)
 );
 
-CREATE TABLE bl_sommeil (
+CREATE TABLE sommeil (
   id_sommeil MEDIUMINT UNSIGNED NOT NULL,
   nombre_reveil DOUBLE NULL,
   PRIMARY KEY (id_sommeil),
-  FOREIGN KEY (id_sommeil) REFERENCES bl_evenement(id_evenement)
+  FOREIGN KEY (id_sommeil) REFERENCES evenement(id_evenement)
 );
 
-CREATE TABLE bl_couche (
+CREATE TABLE couche (
   id_couche MEDIUMINT UNSIGNED NOT NULL,
   selles TINYINT(1) NOT NULL DEFAULT 0,
   urine TINYINT(1) NOT NULL DEFAULT 0,
@@ -84,6 +86,6 @@ CREATE TABLE bl_couche (
   consistance VARCHAR(255) NULL,
   couleur VARCHAR(255) NULL,
   PRIMARY KEY (id_couche),
-  FOREIGN KEY (id_couche) REFERENCES bl_evenement(id_evenement)
+  FOREIGN KEY (id_couche) REFERENCES evenement(id_evenement)
 );
 
