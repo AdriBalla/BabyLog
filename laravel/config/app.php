@@ -165,6 +165,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+        * reliese/laravel
+        */
+        Reliese\Coders\CodersServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
 
