@@ -23,6 +23,11 @@ $api->version('v1', function ($api) {
         return 'Statut API Babylog : OK';
     });
 
+    $api->get('biberons/{id}', 'App\Http\Controllers\BiberonController@show');
+
+    $api->get('biberons', 'App\Http\Controllers\BiberonController@index');
+
+
 });
 
 
