@@ -1,12 +1,13 @@
 # BabyLog
 
-This project is composed of 5 docker containers :
+This project is composed of 6 docker containers :
 
 *    babylog_mysql : MYSQL
 *    babylog_phpmyadmin : PHPMyAdmin
 *    babylog_redis : REDIS
 *    babylog_nginx : Nginx
 *    babylog_fpm : PHP fpm 7.1 Running Lavarel
+*    babylog_angular : Node running the Angular JS project
 
 ## Getting Started
 
@@ -50,6 +51,7 @@ sh ./restart.sh
 You can access the project from this adress : 
 
 * Lavarel (via Nginx): localhost:5050
+* Angular JS (via Nginx): localhost:6060
 * PhpMyAdmin : localhost:8080
 
 ### Kill and remove every container
@@ -60,5 +62,11 @@ If you want to kill and remove every containers of the project :
 sh ./kill.sh
 ```
 
+### Clear volume data 
 
+If you want to clear every volum data :
+
+```
+sh ./clear.sh
+```
 
