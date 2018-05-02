@@ -20,8 +20,6 @@ services:
      networks:
         - babylog
 
-
-
     phpmyadmin:
      container_name: babylog_phpmyadmin
      image: phpmyadmin/phpmyadmin
@@ -52,6 +50,7 @@ services:
      image: nginx:latest
      ports:
         - "5050:80"
+        - "6060:81"
      networks:
         - babylog
      volumes:
@@ -72,6 +71,20 @@ services:
         - ./laravel/:/var/www/laravel
      working_dir:
         /var/www/laravel
+
+
+    angular:
+     container_name: babylog_angular
+     build: ./angular
+     ports:
+        - "4200:4200"
+     networks:
+        - babylog
+     volumes:
+        - ./angular/:/app
+        - ./angular/package.json:/app/
+     working_dir:
+        /app
 
 
 networks:
