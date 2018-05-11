@@ -164,6 +164,17 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
+        /*
+         * Dingo Api
+         */
+        Dingo\Api\Provider\LaravelServiceProvider::class,
+
+        /*
+        * reliese/laravel
+        */
+        Reliese\Coders\CodersServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

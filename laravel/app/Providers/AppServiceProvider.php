@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        #Reliese/Laravel
+        if ($this->app->environment() == 'local') {
+            $this->app->register(\Reliese\Coders\CodersServiceProvider::class);
+        }
     }
 }
