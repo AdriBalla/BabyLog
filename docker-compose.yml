@@ -82,7 +82,6 @@ services:
         - babylog
      volumes:
         - ./angular/:/app
-        - ./angular/package.json:/app/
      working_dir:
         /app
 
