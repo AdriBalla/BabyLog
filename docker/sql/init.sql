@@ -44,7 +44,6 @@ CREATE TABLE utilisateur_bebe (
 CREATE TABLE evenement (
 	id_evenement MEDIUMINT UNSIGNED AUTO_INCREMENT NOT NULL,
 	id_bebe MEDIUMINT UNSIGNED NOT NULL,
-	type ENUM('biberon','repas','tetee','sommeil','couche'),
 	date_debut DATE NOT NULL,
 	date_fin DATE NOT NULL,
 	heure_debut TIME NOT NULL,
