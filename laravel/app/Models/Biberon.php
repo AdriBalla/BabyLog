@@ -32,17 +32,32 @@ class Biberon extends Eloquent
 		'id_biberon' => 'int',
 		'quantite_initiale' => 'float',
 		'quantite_bue' => 'float',
-		'cereales' => 'bool'
+		'cereales' => 'bool',
+        'id_bebe' => 'int'
 	];
+
+    protected $dates = [
+        'date_debut',
+        'date_fin',
+        'heure_debut',
+        'heure_fin'
+    ];
 
 	protected $fillable = [
 		'quantite_initiale',
 		'quantite_bue',
-		'cereales'
+		'cereales',
+        'id_bebe',
+        'type',
+        'date_debut',
+        'date_fin',
+        'heure_debut',
+        'heure_fin',
+        'commentaires'
 	];
 
 	public function evenement()
 	{
-		return $this->belongsTo(\App\Models\Evenement::class, 'id_biberon');
+		return $this->hasOne(\App\Models\Evenement::class, 'id_evenement','id_biberon');
 	}
 }

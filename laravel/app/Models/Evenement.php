@@ -40,44 +40,21 @@ class Evenement extends Eloquent
 	];
 
 	protected $dates = [
-		'date_debut',
-		'date_fin',
-		'heure_debut',
-		'heure_fin'
+
 	];
 
 	protected $fillable = [
 		'id_bebe',
-		'type',
 		'date_debut',
 		'date_fin',
 		'heure_debut',
 		'heure_fin',
-		'commentaires'
+		'commentaires',
+        'date_debut',
+        'date_fin',
+        'heure_debut',
+        'heure_fin'
 	];
 
-	public function bebe()
-	{
-		return $this->belongsTo(\App\Models\Bebe::class, 'id_bebe');
-	}
 
-	public function biberon()
-	{
-		return $this->hasOne(\App\Models\Biberon::class, 'id_biberon');
-	}
-
-	public function couche()
-	{
-		return $this->hasOne(\App\Models\Couche::class, 'id_couche');
-	}
-
-	public function sommeil()
-	{
-		return $this->hasOne(\App\Models\Sommeil::class, 'id_sommeil');
-	}
-
-	public function tetee()
-	{
-		return $this->hasOne(\App\Models\Tetee::class, 'id_tetee');
-	}
 }

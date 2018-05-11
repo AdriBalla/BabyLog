@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Biberon;
+use App\Models\Evenement;
 use Illuminate\Http\Request;
 
 class BiberonController extends Controller
@@ -14,7 +15,7 @@ class BiberonController extends Controller
      * @return Response
      */
     public function show($id) {
-        return Biberon::find($id);
+        return $biberons =  Biberon::with('evenement')->find($id);
     }
 
     /**
@@ -24,7 +25,7 @@ class BiberonController extends Controller
      */
     public function index($id = null) {
         if ($id == null) {
-            return Biberon::all();
+            return Biberon::with('evenement')->get();
         } else {
             return $this->show($id);
         }
