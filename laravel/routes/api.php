@@ -30,7 +30,7 @@ $api->version('v1', function ($api) {
     $api->get('bebes', 'App\Http\Controllers\BebeController@index');
     $api->post('bebes', 'App\Http\Controllers\BebeController@store');
     $api->post('bebes/{id}', 'App\Http\Controllers\BebeController@update');
-    $api->delete('bebes/{id}', 'App\Http\Controllers\BebeController@delete');
+    $api->delete('bebes/{id}', 'App\Http\Controllers\BebeController@destroy');
 
     /**
      * Biberon

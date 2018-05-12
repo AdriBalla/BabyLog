@@ -75,8 +75,8 @@ class BebeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request) {
-        $bebe = Bebe::find($request->input('id'));
+    public function destroy(Request $request,$id) {
+        $bebe = Bebe::find($id);
 
         $bebe->delete();
 

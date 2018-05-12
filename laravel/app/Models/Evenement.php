@@ -14,7 +14,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id_evenement
  * @property int $id_bebe
- * @property string $type
  * @property \Carbon\Carbon $date_debut
  * @property \Carbon\Carbon $date_fin
  * @property \Carbon\Carbon $heure_debut
@@ -39,21 +38,13 @@ class Evenement extends Eloquent
 		'id_bebe' => 'int'
 	];
 
-	protected $dates = [
-
-	];
-
 	protected $fillable = [
 		'id_bebe',
 		'date_debut',
 		'date_fin',
 		'heure_debut',
 		'heure_fin',
-		'commentaires',
-        'date_debut',
-        'date_fin',
-        'heure_debut',
-        'heure_fin'
+		'commentaires'
 	];
 
 
