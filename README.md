@@ -62,11 +62,19 @@ If you want to kill and remove every containers of the project :
 sh ./kill.sh
 ```
 
-### Clear volume data 
+### Clear volume data and restart composer update
 
 If you want to clear every volum data :
 
 ```
 sh ./clear.sh
+```
+
+### Run PHPUnit tests
+
+If you want to run the laravel test PHPUnit :
+
+```
+sh ./test.sh
 ```
 
