@@ -29,7 +29,7 @@ You can install it from this link : https://docs.docker.com/install/
 At first launch, you need to launch the script that will run every container and load every dependencies :
 
 ```
-sh ./start.sh --build
+sh ./install.sh
 ```
 
 ### Running Babylog

@@ -2,9 +2,13 @@ FROM node:8.6 as node
 
 WORKDIR /app
 
-COPY . /app/
+COPY package.json /app/
+
+RUN npm init -y
 
 RUN npm install
+
+COPY . /app/
 
 ARG env=prod
 
