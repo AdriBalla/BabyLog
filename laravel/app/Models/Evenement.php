@@ -19,12 +19,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $heure_debut
  * @property \Carbon\Carbon $heure_fin
  * @property string $commentaires
- * 
+ *
+ * @property \App\Models\Utilisateur $utilisateur
  * @property \App\Models\Bebe $bebe
  * @property \App\Models\Biberon $biberon
  * @property \App\Models\Couche $couche
  * @property \App\Models\Sommeil $sommeil
  * @property \App\Models\Tetee $tetee
+
  *
  * @package App\Models
  */
@@ -35,7 +37,8 @@ class Evenement extends Eloquent
 	public $timestamps = false;
 
 	protected $casts = [
-		'id_bebe' => 'int'
+		'id_bebe' => 'int',
+        'id_utilisateur' => 'int'
 	];
 
 	protected $fillable = [
@@ -46,6 +49,12 @@ class Evenement extends Eloquent
 		'heure_fin',
 		'commentaires'
 	];
+
+
+    public function utilisateur()
+    {
+        return $this->hasOne(\App\Models\Utilisateur::class, 'id_utilisateur','id_utilisateur');
+    }
 
 
 }

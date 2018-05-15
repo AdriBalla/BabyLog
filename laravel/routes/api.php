@@ -30,24 +30,32 @@ $api->version('v1', function ($api) {
     //GET
     $api->get('bebes/{id}', 'App\Http\Controllers\BebeController@getObject');
     $api->get('bebes', 'App\Http\Controllers\BebeController@getAll');
-    $api->get('utilisateurs/{id_utilisateur}/bebes', 'App\Http\Controllers\BebeController@getAllByUtilisateur');
+    $api->get('utilisateurs/{id_utilisateur}/bebes', 'App\Http\Controllers\BebeController@getAll');
 
     //INSERT
     $api->post('bebes', 'App\Http\Controllers\BebeController@insert');
+    $api->post('utilisateurs/{id_utilisateur}/bebes', 'App\Http\Controllers\BebeController@insert');
 
     //UPDATE
     $api->post('bebes/{id}', 'App\Http\Controllers\BebeController@update');
 
-
     //DELETE
     $api->delete('bebes/{id}', 'App\Http\Controllers\BebeController@delete');
 
-    /**
+    /*******************************************************
      * Biberon
-     */
+     *******************************************************/
 
-    $api->get('biberons/{id}', 'App\Http\Controllers\BiberonController@show');
-    $api->get('biberons', 'App\Http\Controllers\BiberonController@index');
+    //GET
+    $api->get('biberons/{id}', 'App\Http\Controllers\BiberonController@getObject');
+    $api->get('biberons', 'App\Http\Controllers\BiberonController@getAll');
+    $api->get('bebes/{id_bebe}/biberons', 'App\Http\Controllers\BiberonController@getAll');
+    $api->get('utilisateurs/{id_utilisateur}/biberons', 'App\Http\Controllers\BiberonController@getAll');
+    $api->get('bebes/{id_bebe}/utilisateurs/{id_utilisateur}/biberons', 'App\Http\Controllers\BiberonController@getAll');
+
+    
+
+
 
 
 });

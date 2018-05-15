@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bebe;
+use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 
 class BebeController extends Controller
@@ -19,24 +20,14 @@ class BebeController extends Controller
 
     /**
      * Get every Bébé.
+     * @param int $id_utilisateur
      *
      * @return Response
      */
-    public function getAll($id = null) {
-        if ($id == null) {
+    public function getAll($id_utilisateur=null) {
+        if ($id_utilisateur == null) {
             return Bebe::all();
         } else {
-            return $this->show($id);
-        }
-    }
-
-    /**
-     * Get all the Bébé by utilisateur.
-     *
-     * @return Response
-     */
-    public function getAllByUtilisateur($id_utilisateur = null) {
-        if (!empty($id_utilisateur)) {
             return Bebe::whereHas('utilisateurs', function ($query) use ($id_utilisateur) {
                 $query->where('utilisateur_bebe.id_utilisateur', '=', $id_utilisateur);
             })->get();
@@ -47,9 +38,10 @@ class BebeController extends Controller
      * Insert a Bébé
      *
      * @param  Request  $request
+     * @param int $id_utilisateur
      * @return Response
      */
-    public function insert(Request $request) {
+    public function insert(Request $request,$id_utilisateur=null) {
         $bebe = new Bebe;
 
         $bebe->nom = $request->input('nom');
@@ -58,6 +50,10 @@ class BebeController extends Controller
         $bebe->sexe = $request->input('sexe');
         $bebe->photo = $request->input('photo');
         $bebe->save();
+
+        if (!empty($id_utilisateur)){
+            Utilisateur::find($id_utilisateur)->bebes()->attach($bebe);
+        }
 
         return $bebe;
     }

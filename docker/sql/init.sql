@@ -27,7 +27,7 @@ CREATE TABLE utilisateur (
   prenom VARCHAR(255) NOT NULL,
   date_naissance DATE NULL,
 	mail VARCHAR(255) NOT NULL,
-	photo VARCHAR(255) NOT NULL,
+	photo VARCHAR(255) NULL,
 	login VARCHAR(255) NOT NULL,
 	password VARCHAR (255) NOT NULL,
 	PRIMARY KEY (id_utilisateur)
@@ -44,13 +44,15 @@ CREATE TABLE utilisateur_bebe (
 CREATE TABLE evenement (
 	id_evenement MEDIUMINT UNSIGNED AUTO_INCREMENT NOT NULL,
 	id_bebe MEDIUMINT UNSIGNED NOT NULL,
+	id_utilisateur MEDIUMINT UNSIGNED NOT NULL,
 	date_debut DATE NOT NULL,
 	date_fin DATE NOT NULL,
 	heure_debut TIME NOT NULL,
 	heure_fin TIME NOT NULL,
 	commentaires VARCHAR(255) NULL,
 	PRIMARY KEY (id_evenement),
-	FOREIGN KEY (id_bebe) REFERENCES bebe(id_bebe)
+	FOREIGN KEY (id_bebe) REFERENCES bebe(id_bebe),
+	FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 ) ENGINE=InnoDB AUTO_INCREMENT=0000;
 
 CREATE TABLE biberon (

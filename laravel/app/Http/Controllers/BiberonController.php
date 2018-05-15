@@ -9,31 +9,44 @@ use Illuminate\Http\Request;
 class BiberonController extends Controller
 {
     /**
-     * Display the specified Biberon.
+     * Get the Biberon by id
      *
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function getObject($id) {
         return $biberons =  Biberon::with('evenement')->find($id);
     }
 
     /**
-     * Display a listing of the resource.
+     * Get all the Biberon
      *
      * @return Response
      */
-    public function index($id = null) {
-        if ($id == null) {
-            return Biberon::with('evenement')->get();
+    public function getAll($id_bebe=null,$id_utilisateur=null) {
+        if (!empty($id_bebe || !empty($id_utilisateur))) {
+
+            $wheres = array();
+
+            if (!empty($id_bebe)){
+                $wheres[] = ['id_bebe', '=', $id_bebe];
+            }
+
+            if (!empty($id_utilisateur)){
+                $wheres[] = ['id_utilisateur', '=', $id_utilisateur];
+            }
+
+            return Biberon::whereHas('evenement', function ($query) use ($wheres) {
+                $query->where($wheres);
+            })->get();
         } else {
-            return $this->show($id);
+            return Biberon::with('evenement')->get();
         }
     }
 
 
     /**
-     * Store a newly created resource in storage.
+     * Insert a Biberon
      *
      * @param  Request  $request
      * @return Response
@@ -67,7 +80,7 @@ class BiberonController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a Biberon
      *
      * @param  Request  $request
      * @param  int  $id
@@ -94,12 +107,12 @@ class BiberonController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a Biberon
      *
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request,$id) {
+    public function delete(Request $request,$id) {
         $biberon = Biberon::with('evenement')->find($id);
 
         $biberon->evenement->delete();

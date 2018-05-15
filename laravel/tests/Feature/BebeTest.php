@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Bebe;
+use App\Models\Utilisateur;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -36,6 +37,32 @@ class BebeTest extends TestCase
 
         $bebe = Bebe::find($bebe["id_bebe"]);
         $bebe->delete();
+
+        $utilisateur = new Utilisateur();
+        $utilisateur->login = "jean.dupont";
+        $utilisateur->nom = "dupont";
+        $utilisateur->prenom = "jean";
+        $utilisateur->password = "motdepasse";
+        $utilisateur->mail = "jean.dupont@test.fr";
+        $utilisateur->date_naissance = "1985-09-11";
+        $utilisateur->photo = null;
+
+        $utilisateur->save();
+
+        $result = $this->post('/api/utilisateurs/'.$utilisateur->id_utilisateur.'/bebes',$data);
+
+        $bebe = $result->json();
+
+        $this->assertEquals($bebe["nom"],"nom");
+        $this->assertEquals($bebe["prenom"],"prenom");
+        $this->assertEquals($bebe["date_naissance"],"2018-07-05 00:00:00");
+        $this->assertEquals($bebe["sexe"],"M");
+        $this->assertEquals($bebe["photo"],"url/vers/la/photo");
+
+        $this->assertDatabaseHas('bebe', ['id_bebe' => $bebe["id_bebe"]]);
+        $this->assertDatabaseHas('utilisateur_bebe', ['id_bebe' => $bebe["id_bebe"]]);
+        $this->assertDatabaseHas('utilisateur_bebe', ['id_utilisateur' => $utilisateur->id_utilisateur]);
+
     }
 
     /**
