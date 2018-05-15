@@ -23,14 +23,24 @@ $api->version('v1', function ($api) {
         return 'Statut API Babylog : OK';
     });
 
-    /**
+    /*******************************************************
      * Bébé
-     */
-    $api->get('bebes/{id}', 'App\Http\Controllers\BebeController@index');
-    $api->get('bebes', 'App\Http\Controllers\BebeController@index');
-    $api->post('bebes', 'App\Http\Controllers\BebeController@store');
+     *******************************************************/
+
+    //GET
+    $api->get('bebes/{id}', 'App\Http\Controllers\BebeController@getObject');
+    $api->get('bebes', 'App\Http\Controllers\BebeController@getAll');
+    $api->get('utilisateurs/{id_utilisateur}/bebes', 'App\Http\Controllers\BebeController@getAllByUtilisateur');
+
+    //INSERT
+    $api->post('bebes', 'App\Http\Controllers\BebeController@insert');
+
+    //UPDATE
     $api->post('bebes/{id}', 'App\Http\Controllers\BebeController@update');
-    $api->delete('bebes/{id}', 'App\Http\Controllers\BebeController@destroy');
+
+
+    //DELETE
+    $api->delete('bebes/{id}', 'App\Http\Controllers\BebeController@delete');
 
     /**
      * Biberon

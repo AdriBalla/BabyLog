@@ -8,21 +8,21 @@ use Illuminate\Http\Request;
 class BebeController extends Controller
 {
     /**
-     * Display the specified Biberon.
+     * Get the Bébé by Id.
      *
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function getObject($id) {
         return Bebe::find($id);
     }
 
     /**
-     * Display a listing of the resource.
+     * Get every Bébé.
      *
      * @return Response
      */
-    public function index($id = null) {
+    public function getAll($id = null) {
         if ($id == null) {
             return Bebe::all();
         } else {
@@ -31,12 +31,25 @@ class BebeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Get all the Bébé by utilisateur.
+     *
+     * @return Response
+     */
+    public function getAllByUtilisateur($id_utilisateur = null) {
+        if (!empty($id_utilisateur)) {
+            return Bebe::whereHas('utilisateurs', function ($query) use ($id_utilisateur) {
+                $query->where('utilisateur_bebe.id_utilisateur', '=', $id_utilisateur);
+            })->get();
+        }
+    }
+
+    /**
+     * Insert a Bébé
      *
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
+    public function insert(Request $request) {
         $bebe = new Bebe;
 
         $bebe->nom = $request->input('nom');
@@ -50,7 +63,7 @@ class BebeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a Bébé
      *
      * @param  Request  $request
      * @param  int  $id
@@ -70,12 +83,12 @@ class BebeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a Bébé
      *
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request,$id) {
+    public function delete(Request $request,$id) {
         $bebe = Bebe::find($id);
 
         $bebe->delete();
