@@ -20,11 +20,20 @@ class BebeController extends Controller
 
     /**
      * Get every Bébé.
+     *
+     * @return Response
+     */
+    public function getAll() {
+        return Bebe::all();
+    }
+
+    /**
+     * Get every Bébé by utilisateur
      * @param int $id_utilisateur
      *
      * @return Response
      */
-    public function getAll($id_utilisateur=null) {
+    public function getAllByUtilisateur($id_utilisateur=null) {
         if ($id_utilisateur == null) {
             return Bebe::all();
         } else {

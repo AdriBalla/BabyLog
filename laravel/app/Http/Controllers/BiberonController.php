@@ -23,25 +23,46 @@ class BiberonController extends Controller
      *
      * @return Response
      */
-    public function getAll($id_bebe=null,$id_utilisateur=null) {
-        if (!empty($id_bebe || !empty($id_utilisateur))) {
+    public function getAll() {
+        return Biberon::with('evenement')->get();
+    }
 
-            $wheres = array();
+    /**
+     * Get all the Biberon by Bebe
+     *
+     * @param $id_bebe
+     * @param $date_debut
+     * @param $date_fin
+     *
+     * @return Response
+     */
+    public function getAllByBebe($id_bebe=null,$date_debut=null,$date_fin=null) {
 
-            if (!empty($id_bebe)){
-                $wheres[] = ['id_bebe', '=', $id_bebe];
-            }
+        $wheres = array();
 
-            if (!empty($id_utilisateur)){
-                $wheres[] = ['id_utilisateur', '=', $id_utilisateur];
-            }
+        if (!empty($id_bebe)){
+            $wheres[] = ['id_bebe', '=', $id_bebe];
+        }
 
-            return Biberon::whereHas('evenement', function ($query) use ($wheres) {
+        if (!empty($date_debut) && !empty($date_fin)){
+            $wheres[] = ['date_debut', '>=', $date_debut];
+            $wheres[] = ['date_fin', '<=', $date_fin];
+        }elseif(!empty($date_debut) && empty($date_fin)){
+            $wheres[] = ['date_debut', '=', $date_debut];
+        }
+
+        if (!empty($date_fin)){
+
+        }
+
+        if (!empty($wheres)) {
+            return Biberon::with('evenement')->whereHas('evenement', function ($query) use ($wheres) {
                 $query->where($wheres);
             })->get();
-        } else {
+        }else {
             return Biberon::with('evenement')->get();
         }
+
     }
 
 

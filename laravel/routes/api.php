@@ -30,7 +30,7 @@ $api->version('v1', function ($api) {
     //GET
     $api->get('bebes/{id}', 'App\Http\Controllers\BebeController@getObject');
     $api->get('bebes', 'App\Http\Controllers\BebeController@getAll');
-    $api->get('utilisateurs/{id_utilisateur}/bebes', 'App\Http\Controllers\BebeController@getAll');
+    $api->get('utilisateurs/{id_utilisateur}/bebes', 'App\Http\Controllers\BebeController@getAllByUtilisateur');
 
     //INSERT
     $api->post('bebes', 'App\Http\Controllers\BebeController@insert');
@@ -49,11 +49,11 @@ $api->version('v1', function ($api) {
     //GET
     $api->get('biberons/{id}', 'App\Http\Controllers\BiberonController@getObject');
     $api->get('biberons', 'App\Http\Controllers\BiberonController@getAll');
-    $api->get('bebes/{id_bebe}/biberons', 'App\Http\Controllers\BiberonController@getAll');
-    $api->get('utilisateurs/{id_utilisateur}/biberons', 'App\Http\Controllers\BiberonController@getAll');
-    $api->get('bebes/{id_bebe}/utilisateurs/{id_utilisateur}/biberons', 'App\Http\Controllers\BiberonController@getAll');
+    $api->get('bebes/{id_bebe}/biberons', 'App\Http\Controllers\BiberonController@getAllByBebe');
+    $api->get('bebes/{id_bebe}/biberons/{date_debut}/{date_fin}', 'App\Http\Controllers\BiberonController@getAllByBebe');
+    $api->get('bebes/{id_bebe}/biberons/{date_debut}', 'App\Http\Controllers\BiberonController@getAllByBebe');
 
-    
+
 
 
 
