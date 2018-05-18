@@ -72,12 +72,12 @@ class BiberonController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
+    public function insert(Request $request,$id_bebe) {
         $biberon = new Biberon();
         $evenement = new Evenement();
 
         //On prépare l'évènement
-        $evenement->bebe = $request->input('id_bebe');
+        $evenement->id_bebe = $id_bebe;
         $evenement->date_debut = $request->input('date_debut');
         $evenement->date_fin = $request->input('date_fin');
         $evenement->heure_debut = $request->input('heure_debut');

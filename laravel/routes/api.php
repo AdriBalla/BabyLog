@@ -54,6 +54,16 @@ $api->version('v1', function ($api) {
     $api->get('bebes/{id_bebe}/biberons/{date_debut}', 'App\Http\Controllers\BiberonController@getAllByBebe');
 
 
+    //INSERT
+    $api->post('bebes/{id_bebe}/biberons', 'App\Http\Controllers\BiberonController@insert');
+
+    //UDPATE
+    $api->post('biberons/{id_biberon}', 'App\Http\Controllers\BiberonController@update');
+
+    //DELETE
+    $api->delete('biberons/{id}', 'App\Http\Controllers\BiberonController@delete');
+
+
 
 
 
