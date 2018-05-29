@@ -1,6 +1,6 @@
 # BabyLog
 
-This project is composed of 6 docker containers :
+This project is composed of 7 docker containers :
 
 *    babylog_mysql : MYSQL
 *    babylog_phpmyadmin : PHPMyAdmin
@@ -8,6 +8,7 @@ This project is composed of 6 docker containers :
 *    babylog_nginx : Nginx
 *    babylog_fpm : PHP fpm 7.1 Running Lavarel
 *    babylog_angular : Node running the Angular JS project
+*    babylog_portainer : Portainer monitoring the containers
 
 ## Getting Started
 
@@ -53,6 +54,7 @@ You can access the project from this adress :
 * Lavarel (via Nginx): localhost:5050
 * Angular JS (via Nginx): localhost:6060
 * PhpMyAdmin : localhost:8080
+* Portainer (via Nginx): localhost:7070
 
 ### Kill and remove every container
 

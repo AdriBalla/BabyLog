@@ -49,8 +49,9 @@ services:
      container_name: babylog_nginx
      image: nginx:latest
      ports:
-        - "5050:80"
-        - "6060:81"
+        - 5050:80
+        - 6060:81
+        - 7070:82
      networks:
         - babylog
      volumes:
@@ -63,8 +64,6 @@ services:
     fpm:
      container_name: babylog_fpm
      build: ./docker/build/php-fpm
-     ports:
-        - "9000:9000"
      networks:
         - babylog
      volumes:
@@ -76,14 +75,22 @@ services:
     angular:
      container_name: babylog_angular
      build: ./angular
-     ports:
-        - "4200:4200"
      networks:
         - babylog
      volumes:
         - ./angular/:/app
      working_dir:
         /app
+
+
+    portainer:
+      image: portainer/portainer
+      container_name: babylog_portainer
+      command: -H unix:///var/run/docker.sock
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+      networks:
+         - babylog
 
 
 networks:
